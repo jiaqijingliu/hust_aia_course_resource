@@ -1,0 +1,115 @@
+ORGANIZATION_BLOCK MAIN:OB1
+TITLE=程序注释
+BEGIN
+Network 1 
+// M0为1：启动交通灯
+LD     I0.0
+O      Q0.0
+AN     I0.1
+=      Q0.0
+Network 2 
+// 记时作用。第5s T39=1；第8sT40；第8+4 T41，第8+4+3 T42；对应四个时间节点与一轮循环
+// T37与T38单纯用于模拟闪烁功能
+LD     Q0.0
+LPS
+AN     T38
+TON    T37, 50
+LRD
+A      T37
+TON    T38, 50
+LPP
+AN     T42
+TON    T39, 500
+TON    T40, 800
+TON    T41, 1200
+TON    T42, 1500
+Network 3 
+// 第一行，就是0-5秒南北绿灯亮
+// 第二行，0-8s 东西红灯亮
+// 第三行，5-8s 南北黄灯亮;T37作用为模拟闪烁
+// 
+// 后面逻辑一模一样的
+// 第8s-
+// 
+// 
+LD     Q0.0
+LPS
+AN     T39
+=      Q0.1
+=      Q1.6
+LRD
+AN     T40
+=      Q1.0
+=      Q0.3
+LRD
+A      T39
+AN     T40
+A      T37
+=      Q0.2
+=      Q1.5
+LPP
+A      T40
+LPS
+AN     T41
+=      Q0.4
+=      Q1.3
+LRD
+AN     T42
+=      Q0.6
+=      Q1.4
+LPP
+A      T41
+AN     T42
+A      T37
+=      Q1.1
+=      Q0.5
+END_ORGANIZATION_BLOCK
+SUBROUTINE_BLOCK SBR_0:SBR0
+TITLE=子程序注释
+BEGIN
+Network 1 
+// 程序段注释
+END_SUBROUTINE_BLOCK
+SUBROUTINE_BLOCK MBUS_CLIENT:SBR1
+TITLE=
+VAR_INPUT
+Req:BOOL;
+Connect:BOOL;
+IPAddr1:BYTE;	//   If IP Address Local memory location changed,  update hardcoded memory location
+IPAddr2:BYTE;
+IPAddr3:BYTE;
+IPAddr4:BYTE;
+IP_Port:WORD;
+RW:BYTE;
+Addr:DWORD;
+Count:INT;
+DataPtr:DWORD;
+END_VAR
+VAR_OUTPUT
+Done:BOOL;
+Error:BYTE;
+END_VAR
+VAR
+IP_Addr:DWORD;
+temp_word:WORD;
+temp_byte:BYTE;
+temp_dword:DWORD;
+temp_pointer:DWORD;
+pUnit_ID:DWORD;
+pFunction_Code:DWORD;
+pServer_Address:DWORD;
+pRetries:DWORD;
+pTimer0:DWORD;
+pTimer1:DWORD;
+NotOutOfRange:BOOL;
+END_VAR
+BEGIN
+Network 1 // 此 POU 针对编辑和查看设置了密码保护.
+
+END_SUBROUTINE_BLOCK
+INTERRUPT_BLOCK INT_0:INT0
+TITLE=中断例程注释
+BEGIN
+Network 1 
+// 程序段注释
+END_INTERRUPT_BLOCK
